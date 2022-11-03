@@ -6,7 +6,6 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:barcode_image/barcode_image.dart';
-import 'package:flutter_barcode_sdk/flutter_barcode_sdk.dart';
 import 'package:barcode_flutter/barcode_flutter.dart';
 
 

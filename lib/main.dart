@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:uki_flutter/ramayana_history2.dart';
+import 'package:uki_flutter/ramayana_home2.dart';
+import 'package:uki_flutter/login2.dart';
 import 'package:uki_flutter/ramayana_profile_2.dart';
 import 'package:uki_flutter/ramayana_profile_3.dart';
 import 'package:uki_flutter/tugas/list_tile.dart';
@@ -46,6 +49,6 @@ class _MyAppState extends State<MyApp> {
             ),
         title: 'Tugas Flutter',
         debugShowCheckedModeBanner: false,
-        home: RamayanaProfile3());
+        home: RamayanaLogin2());
   }
 }

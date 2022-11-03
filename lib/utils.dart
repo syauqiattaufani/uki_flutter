@@ -17,8 +17,8 @@ class Utils {
       elevation: 0,
     );
 
-    Scaffold.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(snackBar);
+    // Scaffold.of(context)
+    //   ..hideCurrentSnackBar()
+    //   ..showSnackBar(snackBar);
   }
 }

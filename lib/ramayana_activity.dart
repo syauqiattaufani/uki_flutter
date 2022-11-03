@@ -7,6 +7,7 @@ import 'package:uki_flutter/ramayana_home.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uki_flutter/models/models_act.dart';
 import 'package:http/http.dart' as http;
+import 'package:uki_flutter/ramayana_home2.dart';
 import 'package:uki_flutter/tugas/ramayana_list.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:uki_flutter/ramayana_db.dart';
@@ -37,12 +38,7 @@ class _RamayanaActivity extends State<RamayanaActivity> {
   var akses = 'usr';
 
   var selected;
-  final List<String> data = [
-    "Lajang",
-    "Menikah",
-    "Janda",
-    "Duda"
-  ];
+  final List<String> data = ["Lajang", "Menikah", "Janda", "Duda"];
 
   XFile? image;
   final ImagePicker picker = ImagePicker();
@@ -59,18 +55,18 @@ class _RamayanaActivity extends State<RamayanaActivity> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8)
-            ),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             title: Text('Please choose media to select'),
             content: Container(
               height: MediaQuery.of(context).size.height / 0,
               child: Column(
                 children: [
-                  ElevatedButton(onPressed: () {
-                    Navigator.pop(context);
-                    getImage(ImageSource.gallery);
-                  },
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.gallery);
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.image),
@@ -78,7 +74,6 @@ class _RamayanaActivity extends State<RamayanaActivity> {
                       ],
                     ),
                   ),
-
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -95,8 +90,7 @@ class _RamayanaActivity extends State<RamayanaActivity> {
               ),
             ),
           );
-        }
-    );
+        });
   }
 
   void fetchProduk() async {
@@ -123,7 +117,8 @@ class _RamayanaActivity extends State<RamayanaActivity> {
   void tambahProduk(id_act) async {
     AktivitasModel.aktivitaslist.clear();
     final responseku = await http.post(
-        Uri.parse('http://ramayana.joeloecs.com/mobileapi/deleted_data_act.php'),
+        Uri.parse(
+            'http://ramayana.joeloecs.com/mobileapi/deleted_data_act.php'),
         body: {
           "id_act": id_act,
         });
@@ -150,38 +145,31 @@ class _RamayanaActivity extends State<RamayanaActivity> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Add Activity',
+          title: Text(
+            'Add Activity',
             style: TextStyle(
               fontSize: 18,
-            ),),
+            ),
+          ),
           backgroundColor: Color.fromARGB(250, 236, 7, 7),
-          actions: <Widget>[
-
-          ],
+          actions: <Widget>[],
           elevation: 20,
           leading: IconButton(
-              icon: const Icon(Icons.arrow_back,
-                  size: 18),
+              icon: const Icon(Icons.arrow_back, size: 18),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(
-                        builder: (context) {
-                          return RamayanaHome();
-                        } ));
-              }
-          )
-      ),
-
-      body:
-      Stack(
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return RamayanaHome2();
+                }));
+              })),
+      body: Stack(
         children: [
           Container(
-            child:
-            Text('Form Activity',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 19,
+            child: Text(
+              'Form Activity',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 19,
               ),
             ),
             margin: EdgeInsets.only(left: 11, top: 15),
@@ -192,223 +180,225 @@ class _RamayanaActivity extends State<RamayanaActivity> {
               color: Color.fromARGB(255, 239, 237, 237),
             ),
           ),
-
           Container(
             margin: EdgeInsets.fromLTRB(20, 80, 20, 0),
-            child:Form(
+            child: Form(
               key: _formKey,
-              child:
-              ListView(
-              children: <Widget>[
-                Text('NIK',
-                  style: TextStyle(
-                    color: Colors.orange,
+              child: ListView(
+                children: <Widget>[
+                  Text(
+                    'NIK',
+                    style: TextStyle(
+                      color: Colors.orange,
+                    ),
                   ),
-                ),
-                TextFormField(
+                  TextFormField(
                     controller: controller_nik,
                     validator: RequiredValidator(errorText: "Format Angka"),
                     keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly
-                  ],
-                ),
-                SizedBox(height: 10),
-
-                Text('Full Name',
-                  style: TextStyle(
-                    color: Colors.deepOrange,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
-                ),
-                TextField(
-                  controller: controller_fullname,
-                ),
-                SizedBox(height: 10),
+                  SizedBox(height: 10),
 
-                Text('Sub Divisi',
-                  style: TextStyle(
-                    color: Colors.deepOrange,
-                  ),
-                ),
-                TextField(
-                  controller: controller_subdivisi,
-                ),
-                SizedBox(height: 10),
-
-                Text('Date Visit',
-                  style: TextStyle(
-                    color: Colors.deepOrange,
-                  ),
-                ),
-                TextField(
-                  controller: controller_date_visit,
-                ),
-                SizedBox(height: 10),
-
-                Text('Location',
-                  style: TextStyle(
-                    color: Colors.deepOrange,
-                    fontSize: 20,
-                  ),
-                ),
-                SizedBox(height: 10),
-
-                TextField(
-                  style: TextStyle(
-                    height: 0,
-                  ),
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search),
-                    labelText: 'Cari di sini..',
-                    border: OutlineInputBorder(),
-                  ),
-                  controller: controller_location,
-                ),
-                SizedBox(height: 14),
-
-                DropdownButton(
-                  value: selected,
-                  hint: Text("Status",
-                  style: TextStyle(
-                    color: Colors.deepOrange,
-                    fontSize: 14
+                  Text(
+                    'Full Name',
+                    style: TextStyle(
+                      color: Colors.deepOrange,
                     ),
-                  )  ,
-                  onChanged: (value) {
-                    print(value);
-                    setState(() {
-                      selected = value;
-                    });
-                  },
-                  items: data
-                      .map(
-                        (e) => DropdownMenuItem(
-                      value: e,
-                      child: Text(e),
+                  ),
+                  TextField(
+                    controller: controller_fullname,
+                  ),
+                  SizedBox(height: 10),
+
+                  Text(
+                    'Sub Divisi',
+                    style: TextStyle(
+                      color: Colors.deepOrange,
                     ),
-                  )
-                      .toList(),
-                ),
-                SizedBox(height: 10),
-
-                Text('Description',
-                  style: TextStyle(
-                    color: Colors.deepOrange,
                   ),
-                ),
-                TextField(
-                  controller: controller_description,
-                ),
-                SizedBox(height: 10),
-
-                Text('Target',
-                  style: TextStyle(
-                    color: Colors.deepOrange,
+                  TextField(
+                    controller: controller_subdivisi,
                   ),
-                ),
-                TextField(
-                  controller: controller_target,
-                ),
-                SizedBox(height: 10),
+                  SizedBox(height: 10),
 
-                Text('STK Numbers',
-                  style: TextStyle(
-                    color: Colors.deepOrange,
+                  Text(
+                    'Date Visit',
+                    style: TextStyle(
+                      color: Colors.deepOrange,
+                    ),
                   ),
-                ),
-                TextFormField(
-                  controller: controller_stk_numbers,
-                  validator: RequiredValidator(errorText: "Format Angka"),
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                ),
-                SizedBox(height: 10),
+                  TextField(
+                    controller: controller_date_visit,
+                  ),
+                  SizedBox(height: 10),
 
-                Container(
-                  margin: EdgeInsets.only(top: 20),
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 191, 183, 183),
-                            borderRadius: BorderRadius.circular(5)
-                        ),
-                        child: IconButton(onPressed: () {
-                          myAlert();
-                        },
-                          icon: Icon(Icons.camera_alt),
-                        ),
-                      ),
-                      Container(
-                          margin: EdgeInsets.only(left: 15),
+                  Text(
+                    'Location',
+                    style: TextStyle(
+                      color: Colors.deepOrange,
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+
+                  TextField(
+                    style: TextStyle(
+                      height: 0,
+                    ),
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      labelText: 'Cari di sini..',
+                      border: OutlineInputBorder(),
+                    ),
+                    controller: controller_location,
+                  ),
+                  SizedBox(height: 14),
+
+                  DropdownButton(
+                    value: selected,
+                    hint: Text(
+                      "Status",
+                      style: TextStyle(color: Colors.deepOrange, fontSize: 14),
+                    ),
+                    onChanged: (value) {
+                      print(value);
+                      setState(() {
+                        selected = value;
+                      });
+                    },
+                    items: data
+                        .map(
+                          (e) => DropdownMenuItem(
+                            value: e,
+                            child: Text(e),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                  SizedBox(height: 10),
+
+                  Text(
+                    'Description',
+                    style: TextStyle(
+                      color: Colors.deepOrange,
+                    ),
+                  ),
+                  TextField(
+                    controller: controller_description,
+                  ),
+                  SizedBox(height: 10),
+
+                  Text(
+                    'Target',
+                    style: TextStyle(
+                      color: Colors.deepOrange,
+                    ),
+                  ),
+                  TextField(
+                    controller: controller_target,
+                  ),
+                  SizedBox(height: 10),
+
+                  Text(
+                    'STK Numbers',
+                    style: TextStyle(
+                      color: Colors.deepOrange,
+                    ),
+                  ),
+                  TextFormField(
+                    controller: controller_stk_numbers,
+                    validator: RequiredValidator(errorText: "Format Angka"),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  ),
+                  SizedBox(height: 10),
+
+                  Container(
+                    margin: EdgeInsets.only(top: 20),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
                           decoration: BoxDecoration(
                               color: Color.fromARGB(255, 191, 183, 183),
-                              borderRadius: BorderRadius.circular(5)
+                              borderRadius: BorderRadius.circular(5)),
+                          child: IconButton(
+                            onPressed: () {
+                              myAlert();
+                            },
+                            icon: Icon(Icons.camera_alt),
                           ),
-                          child:  IconButton(onPressed: () {
-                            myAlert();
-                          },
-                            icon: Icon(Icons.photo,),
-                          )
-                      )
-                    ],
+                        ),
+                        Container(
+                            margin: EdgeInsets.only(left: 15),
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 191, 183, 183),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: IconButton(
+                              onPressed: () {
+                                myAlert();
+                              },
+                              icon: Icon(
+                                Icons.photo,
+                              ),
+                            ))
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(height: 10),
+                  SizedBox(height: 10),
 
-              Container(
-                margin: EdgeInsets.only(top: 20, bottom: 20),
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 255, 17, 17),
-                  //  borderRadius: BorderRadius.circular(20)
-                ),
-                child:
-                TextButton(
-                  child: Text('SUBMIT',style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.white),
-                ),
-                  onPressed: () async {
-                    DateTime now = new DateTime.now();
-                    //var _image;
-                    var formData = FormData.fromMap({
-                      'nik': controller_nik.text,
-                      'fullname': controller_fullname.text,
-                      'subdivisi': controller_subdivisi.text,
-                      'date_visit ': controller_date_visit.text,
-                      'location': controller_location.text,
-                      'status': controller_status.text,
-                      'description': controller_description.text,
-                      'target': controller_target.text,
-                      'stk_numbers': controller_stk_numbers.text,
-                    //   'gambar': await MultipartFile.fromFile(
-                    //       _image.path,
-                    //       filename: 'gambar${now.toString()}.png'
-                    //   ),
-                    });
-                    var response = await dio.post(
-                        'http://ramayana.joeloecs.com/mobileapi/tambah_act.php',
-                        data: formData
-                    );
-                    print('Berhasil, ${controller_nik.text}, ${controller_fullname.text}, ${controller_subdivisi.text}, ${controller_date_visit.text}, ${controller_location.text}, ${controller_status.text}, ${controller_description.text}, ${controller_target.text}, ${controller_stk_numbers.text}');
-                    Navigator.push(context,
-                        MaterialPageRoute(
-                            builder: (context) {
-                              return RamayanaHistory();
-                            } ));
-                    setState(() {
-                    });
-                  },
-                ),
+                  Container(
+                    margin: EdgeInsets.only(top: 20, bottom: 20),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 255, 17, 17),
+                      //  borderRadius: BorderRadius.circular(20)
+                    ),
+                    child: TextButton(
+                      child: Text(
+                        'SUBMIT',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
+                      ),
+                      onPressed: () async {
+                        DateTime now = new DateTime.now();
+                        //var _image;
+                        var formData = FormData.fromMap({
+                          'nik': controller_nik.text,
+                          'fullname': controller_fullname.text,
+                          'subdivisi': controller_subdivisi.text,
+                          'date_visit ': controller_date_visit.text,
+                          'location': controller_location.text,
+                          'status': controller_status.text,
+                          'description': controller_description.text,
+                          'target': controller_target.text,
+                          'stk_numbers': controller_stk_numbers.text,
+                          //   'gambar': await MultipartFile.fromFile(
+                          //       _image.path,
+                          //       filename: 'gambar${now.toString()}.png'
+                          //   ),
+                        });
+                        var response = await dio.post(
+                            'http://ramayana.joeloecs.com/mobileapi/tambah_act.php',
+                            data: formData);
+                        print(
+                            'Berhasil, ${controller_nik.text}, ${controller_fullname.text}, ${controller_subdivisi.text}, ${controller_date_visit.text}, ${controller_location.text}, ${controller_status.text}, ${controller_description.text}, ${controller_target.text}, ${controller_stk_numbers.text}');
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return RamayanaHistory();
+                        }));
+                        setState(() {});
+                      },
+                    ),
+                  ),
+
+                  // onPressed: () {}
+                ],
               ),
-
-                // onPressed: () {}
-              ],
-            ),
             ),
           )
-
-       ],
+        ],
       ),
     );
   }
